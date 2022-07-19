@@ -14,6 +14,7 @@ npx create-react-app .
 npm i gh-pages --save-dev
 npm i sass --save-dev
 npm i npm-run-all
+npm i react-bootstrap bootstrap
 ```
 Add Scripts to package.json:
 ```json
