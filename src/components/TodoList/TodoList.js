@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from "react";
-import todos from "../../todos";
+//import todos from "../../todos";
 import TodoItem from "./TodoItem/TodoItem";
 
 function TodoList() {
+
     const [todosArr, setTodosArr] = useState([]);
 
-
     useEffect(() => {
-        console.log("component mounted");
-        let savedTodos = JSON.parse(localStorage.getItem("todos")) || [];
-        setTodosArr(savedTodos);
+        if (localStorage.getItem("todosLocal") === null) {
+            localStorage.setItem("todosLocal", JSON.stringify([]));
+        } else {
+            setTodosArr(JSON.parse(localStorage.getItem("todosLocal")));
+        }
     }, []);
 
     useEffect(() => {
-        console.log("todosArr updated");
-        localStorage.setItem("todos", JSON.stringify(todosArr));
+        localStorage.setItem("todosLocal", JSON.stringify(todosArr));
     }, [todosArr]);
+
 
 
     const handleTodo = (e) => {
