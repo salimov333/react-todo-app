@@ -1,12 +1,11 @@
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button } from "react-bootstrap";
+import React from "react";
+import "./App.scss";
+import TodoList from './components/TodoList/TodoList'
 
 function App() {
   return (
-    <div className="App">
-      <h1>React App Template</h1>
-      <Button variant="success">Success</Button>
+    <div className="app">
+      <TodoList />
     </div>
   );
 }
