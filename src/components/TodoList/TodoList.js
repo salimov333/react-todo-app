@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-//import todos from "../../todos";
 import TodoItem from "./TodoItem/TodoItem";
 
 function TodoList() {
@@ -7,14 +6,10 @@ function TodoList() {
     const [todosArr, setTodosArr] = useState([]);
     const [todoText, setTodoText] = useState("");
 
-
     useEffect(() => {
-        if (localStorage.getItem("localTodos")) {
-            const storedList = JSON.parse(localStorage.getItem("localTodos"));
-            setTodosArr(storedList);
-        }
+        const storedList = JSON.parse(localStorage.getItem("localTodos")) || [];
+        setTodosArr(storedList);
     }, [])
-
 
     const handleInput = (e) => {
         setTodoText(e.target.value);
@@ -34,7 +29,6 @@ function TodoList() {
         ]);
         setTodoText("");
     };
-
 
     return (
         <div className="todolist m-auto" style={{ width: "60vw" }}>
@@ -67,7 +61,6 @@ function TodoList() {
                     <TodoItem key={todo.id} todoProp={todo} todosArr={todosArr} setTodosArr={setTodosArr} />
                 ))
             }
-
         </div>
     )
 }

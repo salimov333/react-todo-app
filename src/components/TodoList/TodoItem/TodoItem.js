@@ -11,7 +11,6 @@ function TodoItem({ todoProp, todosArr, setTodosArr }) {
             [event.target.name]: event.target.value
         })
     };
-
     const markDone = () => {
         setTodo({
             ...todo,
@@ -24,20 +23,18 @@ function TodoItem({ todoProp, todosArr, setTodosArr }) {
     };
 
     const handleDelete = () => {
-        const filteredTodos = todosArr.filter((item) => {
-            console.log(item);
-            console.log(todo);
-           return item.id !== todo.id
-        })
-        console.log(filteredTodos);
-        setTodosArr(filteredTodos);
-        console.log(todosArr);
-
+        setTodosArr(todosArr.filter((item) => item.id !== todo.id));
     };
 
     useEffect(() => {
-        localStorage.setItem("localTodos", JSON.stringify(todosArr));
-    }, [todosArr])
+        const updatedTodosArr = todosArr.map(item => {
+            if (item.id === todo.id) {
+                item = todo
+            }
+            return item
+        })
+        localStorage.setItem("localTodos", JSON.stringify(updatedTodosArr));
+    }, [todo, todosArr]);
 
     return (
         <div className="todo-item row my-2 bg-light">
