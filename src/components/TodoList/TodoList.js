@@ -5,35 +5,36 @@ import TodoItem from "./TodoItem/TodoItem";
 function TodoList() {
 
     const [todosArr, setTodosArr] = useState([]);
+    const [todoText, setTodoText] = useState("");
+
 
     useEffect(() => {
-        if (localStorage.getItem("todosLocal") === null) {
-            localStorage.setItem("todosLocal", JSON.stringify([]));
-        } else {
-            setTodosArr(JSON.parse(localStorage.getItem("todosLocal")));
+        if (localStorage.getItem("localTodos")) {
+            const storedList = JSON.parse(localStorage.getItem("localTodos"));
+            setTodosArr(storedList);
         }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem("todosLocal", JSON.stringify(todosArr));
-    }, [todosArr]);
+    }, [])
 
 
+    const handleInput = (e) => {
+        setTodoText(e.target.value);
+    }
 
     const handleTodo = (e) => {
         e.preventDefault();
-        const todoText = document.querySelector("#text").value || "New Todo";
         //toLocalDateString("en-Gb", { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })
         setTodosArr([
             ...todosArr,
             {
-                name: todoText,
+                id: Math.random() * 1000,
+                name: todoText || "NEW TODO",
                 date: new Date().toLocaleDateString(),
                 status: false
             }
         ]);
-        document.querySelector("#text").value = "";
+        setTodoText("");
     };
+
 
     return (
         <div className="todolist m-auto" style={{ width: "60vw" }}>
@@ -45,7 +46,9 @@ function TodoList() {
                             className="w-100 py-1"
                             type="text"
                             name="text"
+                            value={todoText}
                             id="text"
+                            onChange={handleInput}
                         />
                     </div>
                     <div className="col">
@@ -57,13 +60,11 @@ function TodoList() {
                             Einfügen
                         </button>
                     </div>
-
                 </div>
             </form>
-
             {
-                todosArr.map((todo, index) => (
-                    <TodoItem key={index} todo={todo} />
+                todosArr.map((todo) => (
+                    <TodoItem key={todo.id} todoProp={todo} todosArr={todosArr} setTodosArr={setTodosArr} />
                 ))
             }
 
