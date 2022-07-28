@@ -23,6 +23,9 @@ function TodoItem({ todoProp, todosArr, setTodosArr }) {
     };
 
     const handleDelete = () => {
+        if(todosArr.length === 1){
+            localStorage.setItem("localTodos", JSON.stringify([]));
+        }
         setTodosArr(todosArr.filter((item) => item.id !== todo.id));
     };
 

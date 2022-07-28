@@ -30,12 +30,19 @@ function TodoList() {
         setTodoText("");
     };
 
+    const handleReset = (e)=> {
+        e.preventDefault();
+        //console.log("reset");
+        setTodosArr([]);
+        localStorage.setItem("localTodos", JSON.stringify([]));
+    }
+
     return (
         <div className="todolist m-auto" style={{ width: "60vw" }}>
             <h1 className="text-center m-4">My Todos</h1>
             <form action="#">
                 <div className="row my-4 py-2 bg-secondary">
-                    <div className="col-9">
+                    <div className="col-8">
                         <input
                             className="w-100 py-1"
                             type="text"
@@ -45,13 +52,22 @@ function TodoList() {
                             onChange={handleInput}
                         />
                     </div>
-                    <div className="col">
+                    <div className="col-2">
                         <button
                             type="submit"
                             className="btn btn-light px-3"
                             onClick={handleTodo}
                         >
                             Einfügen
+                        </button>
+                    </div>
+                    <div className="col-2">
+                        <button
+                            type="submit"
+                            className="btn btn-dark px-3"
+                            onClick={handleReset}
+                        >
+                            zurücksetzen
                         </button>
                     </div>
                 </div>
