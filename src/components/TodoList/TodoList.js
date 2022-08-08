@@ -23,7 +23,7 @@ function TodoList() {
             {
                 id: Math.random() * 1000,
                 name: todoText || "NEW TODO",
-                date: new Date().toLocaleDateString(),
+                date: "DD/MM/YYYY",
                 status: false
             }
         ]);
